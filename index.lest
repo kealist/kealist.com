@@ -41,7 +41,7 @@ h2 #projects "My Projects"
 
 ul
 li link  https://github.com/kealist/rebol-1 "Rebol 3 Serial Implementation" 
-li link https://github.com/kealist/firmata "Firmata for Rebol 3"
+li link https://github.com/kealist/rebol-firmata "Firmata for Rebol 3"
 li link https://github.com/kealist/chip8-reb "Chip8 Emulator"
 li link https://github.com/kealist/CPPS-Automation "CPPS Automation"
 

@@ -1,0 +1,43 @@
+head
+
+enable bootstrap
+enable smooth-scrolling
+enable google-font
+stylesheet css-path/font-awesome.min.css
+google-font "Oswald"
+title "kealist - blog - Exploration of the Hamiltonian Système Naturel"
+
+body
+
+p {In an effort to get back into reading classics and renew my Latin reading, I want to investigate the claims of Hamilton in his language learning method by trying them myself.}
+
+p {Here are various resources and commentaries I have found about this style of interlinear translation:}
+
+
+h5 {Hamilton Articles:}
+ul 
+li link http://books.google.com/books?id=vU5IAAAAYAAJ&lpg=PA573&ots=vO5Q_Ou9LE&dq=Syst%C3%A8me%20Naturel%20interlinear&pg=PA568#v=onepage&q=Syst%C3%A8me%20Naturel%20interlinear&f=false {"The 'Hamiltonian System' of Education." --The Gentleman's Magazine Vol 265(1886)}
+li link http://theamericanscholar.org/the-new-old-way-of-learning-languages/ {The New Old Way of Learning Languages}
+
+h5 {Haloinus Cominius:}
+
+h5 {Jacopo Facciolati}
+
+ul 
+li link http://books.google.com/books?id=i6QwAAAAYAAJ&lpg=PA374&ots=lOdsstb38W&dq=facciolati%20learning%20language&pg=PA374#v=onepage&q=facciolati%20learning%20language&f=false {Jacopo Facciolati -- A History of Classical Scholarship ...: From the revival of learning to the ...}
+
+h5 {César Chesneau Dumarsais:}
+
+h5 {Ahn and Ollendorff?:}
+
+h5 {John Locke}
+
+ul 
+li link http://faculty.education.illinois.edu/westbury/paradigm/stray.html {John Taylor and Locke’s Classical System }
+
+h5 {John Taylor}
+
+ul 
+li link http://books.google.com/books?id=cs9aQIF51QkC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false {Æsop's fables, as romanized by Phædrus}
+li link http://faculty.education.illinois.edu/westbury/paradigm/stray.html {John Taylor and Locke’s Classical System}
+li link http://books.google.com/books/about/An_essay_on_a_system_of_classical_instru.html?id=sXFIDngmBe0C {An essay on a system of classical instruction: combining the methods of Locke, Milton, Ascham, and Colet: the whole series being designed to exhibit a restoration of the primitive mode of scholastic tuition in England, disembarrassed of its modern abuses}
