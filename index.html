@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>kealist - Designing Dialects for Control and Communication</title>
+<meta charset="utf-8">
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'></head>
+<body data-spy="scroll" data-target=".navbar"><div class="navbar navbar-fixed-top navtext navbar-inverse" role="navigation"><div class="container"><div class="navbar-collapse collapse"><ul id="page-nav" class="nav navbar-nav"><li><a href="#what">What is a Dialect?</a></li><li><a href="#why">How to Get Started</a></li><li><a href="#projects">My Projects</a></li><li><a href="#dialects">Example Dialects</a></li><li><a href="#links">Links</a></li></ul></div></div></div><br><br><h1>Designing Dialects for Control and Communication</h1><h2 id="projects">What is a Dialect?</h2><p>Dialect is a term for a small language, or Domain-Specific-Languages (DSLs), that achieves a certain purpose. What does this mean, practically? Well, let's look at some use-cases:</p><h3>Home Automation</h3><p>An example of this is controlling home automation devices. To send an actual serial signal to a lightswitch would require constructing a binary string with a command to turn on a light. This is fine and not so difficult to program, but later, maintenance of either one shot commands or manually entered variables will become more of a nightmare. On the other hand, dialecting tends toward elegance, expressing the same idea in the following way:</p><pre>[turn on bedroom light at 7:30am]
+[turn off bedroom light at 9:00pm]</pre><p>Given a script with similar commands would make maintenance much more pleasurable! Dialecting requires more thought intially, but leads to bigger payoff in the usability and enjoyment. You will actually have more fun using it.</p><h2 id="howto">How to Get Started</h2><p>Grab a pen or a text editor and write out some test cases.  What do you want to happen and when?</p><h2 id="projects">My Projects</h2><ul><li><a href="https://github.com/kealist/rebol-1">Rebol 3 Serial Implementation</a></li><li><a href="https://github.com/kealist/firmata">Firmata for Rebol 3</a></li><li><a href="https://github.com/kealist/chip8-reb">Chip8 Emulator</a></li><li><a href="https://github.com/kealist/CPPS-Automation">CPPS Automation</a></li></ul><h2 id="dialects">Dialects</h2><ul><li><a href="http://magazine.odroid.com/assets/201406/pdf/ODROID-Magazine-201406.pdf">ODROID Magazine: Odroid Show control dialect</a></li><li><a href="https://github.com/rebolek/Lest">Lest: Low Entropy System for Templating</a></li><li><a href="http://www.rebol.it/power-mezz/dialects/fsm.html">Finite-State-Machine (FSM) Dialect</a></li></ul><h2 id="links">Links</h2><ul><li><a href="http://www.red-lang.org/">Red Programming Language</a></li><li><a href="https://github.com/rebol/rebol">Rebol 3 Repository</a></li><li><a href="http://blog.hostilefork.com/why-rebol-red-parse-cool/">Why Rebol, Red, and the Parse dialect are Cool</a></li></ul><script src="js/jquery-2.1.0.min.js"></script><script src="js/bootstrap.min.js"></script><script type="text/javascript">
+	  $(function() {
+	    $('ul#page-nav > li > a[href*=#]:not([href=#])').click(function() {
+	      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+	        var target = $(this.hash);
+	        var navHeight = $("#page-nav").height();
+
+	        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+	        if (target.length) {
+	          $('html,body').animate({
+	            scrollTop: target.offset().top - navHeight
+	          }, 1000);
+	          return false;
+	        }
+	      }
+	    });
+	  });
+	</script></body></html>

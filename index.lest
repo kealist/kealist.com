@@ -1,0 +1,62 @@
+head
+
+enable bootstrap
+enable smooth-scrolling
+enable google-font
+stylesheet css-path/font-awesome.min.css
+google-font "Oswald"
+title "kealist - Designing Dialects for Control and Communication"
+
+body
+
+navbar inverse [
+    link #what "What is a Dialect?"
+    link #why "How to Get Started"
+    link #projects "My Projects"
+    link #dialects "Example Dialects"
+    link #links "Links"
+]
+br
+br
+h1 "Designing Dialects for Control and Communication"
+
+h2 #projects "What is a Dialect?"
+
+p {Dialect is a term for a small language, or Domain-Specific-Languages (DSLs), that achieves a certain purpose. What does this mean, practically? Well, let's look at some use-cases:}
+
+h3 "Home Automation"
+
+p {An example of this is controlling home automation devices. To send an actual serial signal to a lightswitch would require constructing a binary string with a command to turn on a light. This is fine and not so difficult to program, but later, maintenance of either one shot commands or manually entered variables will become more of a nightmare. On the other hand, dialecting tends toward elegance, expressing the same idea in the following way:}
+
+pre {[turn on bedroom light at 7:30am]
+[turn off bedroom light at 9:00pm]}
+
+p {Given a script with similar commands would make maintenance much more pleasurable! Dialecting requires more thought intially, but leads to bigger payoff in the usability and enjoyment. You will actually have more fun using it.}
+
+h2 #howto "How to Get Started"
+
+p {Grab a pen or a text editor and write out some test cases.  What do you want to happen and when?}
+
+h2 #projects "My Projects"
+
+ul
+li link  https://github.com/kealist/rebol-1 "Rebol 3 Serial Implementation" 
+li link https://github.com/kealist/firmata "Firmata for Rebol 3"
+li link https://github.com/kealist/chip8-reb "Chip8 Emulator"
+li link https://github.com/kealist/CPPS-Automation "CPPS Automation"
+
+
+h2 #dialects "Dialects"
+
+ul
+li link http://magazine.odroid.com/assets/201406/pdf/ODROID-Magazine-201406.pdf "ODROID Magazine: Odroid Show control dialect"
+li link https://github.com/rebolek/Lest "Lest: Low Entropy System for Templating"
+li link http://www.rebol.it/power-mezz/dialects/fsm.html "Finite-State-Machine (FSM) Dialect"
+
+
+h2 #links "Links"
+
+ul
+li link http://www.red-lang.org/ "Red Programming Language"
+li link https://github.com/rebol/rebol "Rebol 3 Repository"
+li link http://blog.hostilefork.com/why-rebol-red-parse-cool/ "Why Rebol, Red, and the Parse dialect are Cool"
