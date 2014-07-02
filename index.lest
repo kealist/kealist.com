@@ -10,8 +10,7 @@ title "kealist - Designing Dialects for Control and Communication"
 body
 
 navbar inverse [
-    link #what "What is a Dialect?"
-    link #why "How to Get Started"
+    link #what "Maker Faire:  What is a Dialect?"
     link #projects "My Projects"
     link #dialects "Example Dialects"
     link #links "Links"
@@ -22,16 +21,94 @@ h1 "Designing Dialects for Control and Communication"
 
 h2 #projects "What is a Dialect?"
 
-p {Dialect is a term for a small language, or Domain-Specific-Languages (DSLs), that achieves a certain purpose. What does this mean, practically? Well, let's look at some use-cases:}
+p {Dialect is a term for a small language, or Domain-Specific-Languages (DSLs), that achieves a certain purpose. What does this mean, practically? Well, let's look at a use-case:}
 
-h3 "Home Automation"
+h3 "Dice"
 
-p {An example of this is controlling home automation devices. To send an actual serial signal to a lightswitch would require constructing a binary string with a command to turn on a light. This is fine and not so difficult to program, but later, maintenance of either one shot commands or manually entered variables will become more of a nightmare. On the other hand, dialecting tends toward elegance, expressing the same idea in the following way:}
+p {Let's say I need to calculate a lot of diverse dice rolls, I want to make a list of the number and type of dice that I want to calculate, such as below:}
 
-pre {[turn on bedroom light at 7:30am]
-[turn off bedroom light at 9:00pm]}
+pre {dice: [10 d10 4 d6]}
 
-p {Given a script with similar commands would make maintenance much more pleasurable! Dialecting requires more thought intially, but leads to bigger payoff in the usability and enjoyment. You will actually have more fun using it.}
+p {Thiings we notice:  First, it's readable; and second, there are no function calls for each number of dice.  This is a little "language" I have created for this problem.  I need to be able to parse this language and the rules will look something like this:}
+
+pre {dice-rule: [
+	some [integer! word!]
+]}
+
+p {This rule will tell whether the language matches the language or not:}
+
+pre {>> parse dice dice-rule
+== true}
+
+p {We can even extend the "language" to include a die without a number in front of it:}
+
+pre {
+dice: [10 d8 d10 50 d6 d100]
+dice-rule: [
+	some [
+		word! 
+	|
+		integer! word!
+	]
+]}
+
+p {And the language is still parse-able.}
+
+pre {>> parse dice dice-rule
+== true}
+
+p {However, it won't calculate the dice rolls yet. We can add some extra commands to do so:}
+
+pre {dice-rule: [
+	(total: 0)
+	some [
+		copy die word!
+		(total: total + roll 1 get die/1)
+	|
+		copy n integer!
+		copy die word!
+		(total: total + roll n/1 get die/1)
+	]
+]}
+
+p {Now, all we need to do is to define the roll function to add up the number of random rolls for each word and define the values for each die word!  Here is my implementation of a calculate function that does the above.}
+
+pre {random/seed now/precise
+
+d2: 2
+d4: 4
+d6: 6
+d8: 8
+d12: 12
+d20: 20
+d100: 100
+
+calculate: function [b] [
+	dice-rule: [
+		(total: 0)
+		some [
+			copy die word!
+			(total: total + roll 1 get die/1)
+		|
+			copy n integer!
+			copy die word!
+			(total: total + roll n/1 get die/1)
+		]
+	]
+
+	roll: func [times [integer!] die [integer!]] [
+		result: 0
+		repeat i times [result: result + random die]
+		result
+	]
+
+	parse b dice-rule
+	total
+]
+
+repeat i 400 [ 
+	print calculate [10 d10 4 d6]
+]}
 
 h2 #howto "How to Get Started"
 

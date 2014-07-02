@@ -7,8 +7,64 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'></head>
-<body data-spy="scroll" data-target=".navbar"><div class="navbar navbar-fixed-top navtext navbar-inverse" role="navigation"><div class="container"><div class="navbar-collapse collapse"><ul id="page-nav" class="nav navbar-nav"><li><a href="#what">What is a Dialect?</a></li><li><a href="#why">How to Get Started</a></li><li><a href="#projects">My Projects</a></li><li><a href="#dialects">Example Dialects</a></li><li><a href="#links">Links</a></li></ul></div></div></div><br><br><h1>Designing Dialects for Control and Communication</h1><h2 id="projects">What is a Dialect?</h2><p>Dialect is a term for a small language, or Domain-Specific-Languages (DSLs), that achieves a certain purpose. What does this mean, practically? Well, let's look at some use-cases:</p><h3>Home Automation</h3><p>An example of this is controlling home automation devices. To send an actual serial signal to a lightswitch would require constructing a binary string with a command to turn on a light. This is fine and not so difficult to program, but later, maintenance of either one shot commands or manually entered variables will become more of a nightmare. On the other hand, dialecting tends toward elegance, expressing the same idea in the following way:</p><pre>[turn on bedroom light at 7:30am]
-[turn off bedroom light at 9:00pm]</pre><p>Given a script with similar commands would make maintenance much more pleasurable! Dialecting requires more thought intially, but leads to bigger payoff in the usability and enjoyment. You will actually have more fun using it.</p><h2 id="howto">How to Get Started</h2><p>Grab a pen or a text editor and write out some test cases.  What do you want to happen and when?</p><h2 id="projects">My Projects</h2><ul><li><a href="https://github.com/kealist/rebol-1">Rebol 3 Serial Implementation</a></li><li><a href="https://github.com/kealist/rebol-firmata">Firmata for Rebol 3</a></li><li><a href="https://github.com/kealist/chip8-reb">Chip8 Emulator</a></li><li><a href="https://github.com/kealist/CPPS-Automation">CPPS Automation</a></li></ul><h2 id="dialects">Dialects</h2><ul><li><a href="http://magazine.odroid.com/assets/201406/pdf/ODROID-Magazine-201406.pdf">ODROID Magazine: Odroid Show control dialect</a></li><li><a href="https://github.com/rebolek/Lest">Lest: Low Entropy System for Templating</a></li><li><a href="http://www.rebol.it/power-mezz/dialects/fsm.html">Finite-State-Machine (FSM) Dialect</a></li></ul><h2 id="links">Links</h2><ul><li><a href="http://www.red-lang.org/">Red Programming Language</a></li><li><a href="https://github.com/rebol/rebol">Rebol 3 Repository</a></li><li><a href="http://blog.hostilefork.com/why-rebol-red-parse-cool/">Why Rebol, Red, and the Parse dialect are Cool</a></li></ul><script src="js/jquery-2.1.0.min.js"></script><script src="js/bootstrap.min.js"></script><script type="text/javascript">
+<body data-spy="scroll" data-target=".navbar"><div class="navbar navbar-fixed-top navtext navbar-inverse" role="navigation"><div class="container"><div class="navbar-collapse collapse"><ul id="page-nav" class="nav navbar-nav"><li><a href="#what">Maker Faire:  What is a Dialect?</a></li><li><a href="#projects">My Projects</a></li><li><a href="#dialects">Example Dialects</a></li><li><a href="#links">Links</a></li></ul></div></div></div><br><br><h1>Designing Dialects for Control and Communication</h1><h2 id="projects">What is a Dialect?</h2><p>Dialect is a term for a small language, or Domain-Specific-Languages (DSLs), that achieves a certain purpose. What does this mean, practically? Well, let's look at a use-case:</p><h3>Dice</h3><p>Let's say I need to calculate a lot of diverse dice rolls, I want to make a list of the number and type of dice that I want to calculate, such as below:</p><pre>dice: [10 d10 4 d6]</pre><p>Thiings we notice:  First, it's readable; and second, there are no function calls for each number of dice.  This is a little "language" I have created for this problem.  I need to be able to parse this language and the rules will look something like this:</p><pre>dice-rule: [
+	some [integer! word!]
+]</pre><p>This rule will tell whether the language matches the language or not:</p><pre>&gt;&gt; parse dice dice-rule
+== true</pre><p>We can even extend the "language" to include a die without a number in front of it:</p><pre>
+dice: [10 d8 d10 50 d6 d100]
+dice-rule: [
+	some [
+		word! 
+	|
+		integer! word!
+	]
+]</pre><p>And the language is still parse-able.</p><pre>&gt;&gt; parse dice dice-rule
+== true</pre><p>However, it won't calculate the dice rolls yet. We can add some extra commands to do so:</p><pre>dice-rule: [
+	(total: 0)
+	some [
+		copy die word!
+		(total: total + roll 1 get die/1)
+	|
+		copy n integer!
+		copy die word!
+		(total: total + roll n/1 get die/1)
+	]
+]</pre><p>Now, all we need to do is to define the roll function to add up the number of random rolls for each word and define the values for each die word!  Here is my implementation of a calculate function that does the above.</p><pre>random/seed now/precise
+
+d2: 2
+d4: 4
+d6: 6
+d8: 8
+d12: 12
+d20: 20
+d100: 100
+
+calculate: function [b] [
+	dice-rule: [
+		(total: 0)
+		some [
+			copy die word!
+			(total: total + roll 1 get die/1)
+		|
+			copy n integer!
+			copy die word!
+			(total: total + roll n/1 get die/1)
+		]
+	]
+
+	roll: func [times [integer!] die [integer!]] [
+		result: 0
+		repeat i times [result: result + random die]
+		result
+	]
+
+	parse b dice-rule
+	total
+]
+
+repeat i 400 [ 
+	print calculate [10 d10 4 d6]
+]</pre><h2 id="howto">How to Get Started</h2><p>Grab a pen or a text editor and write out some test cases.  What do you want to happen and when?</p><h2 id="projects">My Projects</h2><ul><li><a href="https://github.com/kealist/rebol-1">Rebol 3 Serial Implementation</a></li><li><a href="https://github.com/kealist/rebol-firmata">Firmata for Rebol 3</a></li><li><a href="https://github.com/kealist/chip8-reb">Chip8 Emulator</a></li><li><a href="https://github.com/kealist/CPPS-Automation">CPPS Automation</a></li></ul><h2 id="dialects">Dialects</h2><ul><li><a href="http://magazine.odroid.com/assets/201406/pdf/ODROID-Magazine-201406.pdf">ODROID Magazine: Odroid Show control dialect</a></li><li><a href="https://github.com/rebolek/Lest">Lest: Low Entropy System for Templating</a></li><li><a href="http://www.rebol.it/power-mezz/dialects/fsm.html">Finite-State-Machine (FSM) Dialect</a></li></ul><h2 id="links">Links</h2><ul><li><a href="http://www.red-lang.org/">Red Programming Language</a></li><li><a href="https://github.com/rebol/rebol">Rebol 3 Repository</a></li><li><a href="http://blog.hostilefork.com/why-rebol-red-parse-cool/">Why Rebol, Red, and the Parse dialect are Cool</a></li></ul><script src="js/jquery-2.1.0.min.js"></script><script src="js/bootstrap.min.js"></script><script type="text/javascript">
 	  $(function() {
 	    $('ul#page-nav > li > a[href*=#]:not([href=#])').click(function() {
 	      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
